@@ -1,5 +1,5 @@
-Задание 1
-1. Требования к витрине:
+## Задание 1
+### 1. Требования к витрине:
 располагаться в той же базе в схеме analysis, 
 данные с начала 2021 года, 
 обновления не нужны.
@@ -15,20 +15,18 @@
 Для анализа нужно отобрать только успешно выполненные заказы - Это заказ со статусом Closed
 
 
-2.
-Источники чтобы построить витрину:
+### 2. Источники чтобы построить витрину:
 	•	user_id  - из таблицы production.orders  поле user_id, orderstatuses
 	•	recency - из таблицы production.orders  поле user_id, orderstatuses, order_ts
 	•	Frequency - из таблицы production.orders  поле user_id,  orderstatuses, order_id
 	•	monetary_value -  из таблицы production.orders  поле user_id,  orderstatuses, payment
 
-3.
-Проверка качества данных в production.orders: 
+### 3. Проверка качества данных в production.orders: 
 	•	orders_id - дублей нет
 	•	Пропущенных значений нет
 	•	В таблице orders все поля имеют корректные типы данных
-4.1. 
-Подготовьте витрину данных
+### 4.1. Подготовьте витрину данных
+```SQL
 
 create view analysis.v_orderitems as
 select * from production.orderitems;
@@ -47,9 +45,10 @@ select * from production.products;
 
 create view analysis.v_users as
 select * from production.users; 
+```
 
-
-4.2 Теперь нужно заполнить витрину
+### 4.2 Теперь нужно заполнить витрину
+```SQL
 CREATE table IF NOT EXISTS  analysis.dm_rfm_segments 
 (
   user_id integer not null,
@@ -136,9 +135,10 @@ ROW_NUMBER () OVER (
   from recency r
  inner join frequency f on (r.user_id = f.user_id)
  inner join monetary m on (r.user_id = m.user_id);
+```
 
-
-Задание 2.
+### Задание 2.
+```SQL
 CREATE OR REPLACE VIEW analysis.v_orders
 AS
 select 
@@ -163,3 +163,4 @@ x.status_id
  from production.orderstatuslog )r
 where row_dt = 1
  ) as x on (o.order_id = x.order_id)
+```
