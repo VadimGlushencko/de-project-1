@@ -67,3 +67,16 @@ CREATE TABLE analysis.tmp_rfm_monetary_value (
 Для проверки предоставьте код на языке SQL, который обновляет представление analysis.Orders.
 
 Создайте документ orders_view.sql и сохраните в нём написанный запрос.
+
+
+### Как запустить контейнер
+Запустите локально команду:
+
+```
+docker run -d --rm -p 3030:3030 -p 3000:3000 --name=de-project-sprint-1-server-local sindb/project-sprint-1:latest
+```
+
+После того как запустится контейнер, у вас будут доступны:
+1. VS Code
+2. CloudBeaver
+3. PostgreSQL (запросы лучше выполнять через CloudBeaver)
